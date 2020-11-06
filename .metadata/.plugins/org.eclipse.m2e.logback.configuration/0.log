@@ -1,0 +1,10 @@
+2020-11-05 18:53:47,473 [Worker-3] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2020-11-05 18:57:08,420 [Worker-11] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Collecting project info '/pom.xml' /home/armando/Documents/EclipseProjects/CheckInControlProject/checkin/pom.xml
+2020-11-05 18:57:19,120 [Worker-11] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.java.project:checkin:1.0.0-SNAPSHOT @ /home/armando/Documents/EclipseProjects/CheckInControlProject/checkin/pom.xml.
+2020-11-05 18:57:19,955 [Worker-11] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /checkin/src/main/java
+2020-11-05 18:57:19,958 [Worker-11] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /checkin/src/test/java
+2020-11-05 18:57:21,168 [Worker-11] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 12 sec
+2020-11-05 18:57:24,858 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-11-05 18:57:24,858 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/armando/Documents/EclipseProjects/CheckInControlProject/checkin/src/main/resources
+2020-11-05 18:57:24,860 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-11-05 18:57:24,861 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/armando/Documents/EclipseProjects/CheckInControlProject/checkin/src/test/resources
