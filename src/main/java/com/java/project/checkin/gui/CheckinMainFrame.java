@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import com.java.project.checkin.models.Employee;
+
 import javax.swing.JTabbedPane;
 import javax.swing.Timer;
 
@@ -33,22 +37,41 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel checkinPane;
-	private JPasswordField txtCheckinPass;
+	public static  JPasswordField txtCheckinPass;
 	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 	Timer timer; 
 	JLabel lblClock;
-	private JTable tableEmployee;
-	private JTextField txtNewEmployeeName;
-	private JTextField txtNewEmployeeTel;
-	private JPasswordField txtNewEmployeePass;
-	private JPasswordField txtNewEmployeePassConfirm;
-	private JTable tblCheckIn;
-	private JTextField txtNewEmail;
-	private JPasswordField txtNewEmailPass;
-	private JTable tblEmail;
-	private JTextField txtNewCheckinPdfPath;
-	private JTextField txtNewEmployPdfPath;
-	private JTable tblPaths;
+
+	public static  JTextField txtNewEmployeeName;
+	public static  JTextField txtNewEmployeeTel;
+	public static  JTextField txtNewCheckinPdfPath;
+	public static  JTextField txtNewEmployPdfPath;
+	public static  JTextField txtNewEmail;
+	
+	
+	public static  JPasswordField txtNewEmployeePass;
+	public static  JPasswordField txtNewEmployeePassConfirm;
+	public static  JPasswordField txtNewEmailPass;
+
+	public static JScrollPane scrollPaneEmployee;
+	public static JScrollPane scrollPaneCheckIn;
+	public static JScrollPane scrollEmailPane;
+	public static JScrollPane scrollPathsPane;
+
+	
+	public static  JTable tblPaths;
+	public static  JTable tblEmail;
+	public static  JTable tblCheckIn;
+	public static  JTable tableEmployee;
+	
+	public static DefaultTableModel tableModelCheckin;
+	public static DefaultTableModel tableModelEmployee;
+	public static DefaultTableModel tableModelEmailConfig;
+	public static DefaultTableModel tableModelPaths;
+	
+	public static  JComboBox<String> cmbCheckinEmployee;
+	
+	public static  Employee[] employeeList;
 
 	/**
 	 * Launch the application.
@@ -114,7 +137,7 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		lblEmpleado.setBounds(284, 273, 114, 25);
 		checkinPanel.add(lblEmpleado);
 		
-		JComboBox cmbCheckinEmployee = new JComboBox();
+		cmbCheckinEmployee = new JComboBox();
 		cmbCheckinEmployee.setBounds(401, 262, 289, 36);
 		checkinPanel.add(cmbCheckinEmployee);
 		
@@ -153,7 +176,7 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		lblTitleEmployee.setBounds(25, 24, 414, 53);
 		employeePanel.add(lblTitleEmployee);
 		
-		JScrollPane scrollPaneEmployee = new JScrollPane();
+		scrollPaneEmployee = new JScrollPane();
 		scrollPaneEmployee.setBounds(394, 127, 560, 341);
 		employeePanel.add(scrollPaneEmployee);
 		
@@ -256,8 +279,8 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		lblChecador.setFont(new Font("Dialog", Font.BOLD, 45));
 		panel.add(lblChecador);
 		
-		JScrollPane scrollPaneCheckIn = new JScrollPane();
-		scrollPaneCheckIn.setBounds(102, 144, 757, 356);
+		scrollPaneCheckIn = new JScrollPane();
+		scrollPaneCheckIn.setBounds(41, 144, 898, 356);
 		panel.add(scrollPaneCheckIn);
 		
 		tblCheckIn = new JTable();
@@ -300,8 +323,8 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		txtNewEmailPass.setBounds(303, 151, 184, 31);
 		panel_1.add(txtNewEmailPass);
 		
-		JScrollPane scrollEmailPane = new JScrollPane();
-		scrollEmailPane.setBounds(114, 278, 782, 146);
+		scrollEmailPane = new JScrollPane();
+		scrollEmailPane.setBounds(105, 270, 732, 146);
 		panel_1.add(scrollEmailPane);
 		
 		tblEmail = new JTable();
@@ -312,7 +335,7 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		panel_1.add(btnSaveEmail);
 		
 		JButton btnUpdateEmail = new JButton("Actualizar");
-		btnUpdateEmail.setBounds(124, 436, 154, 31);
+		btnUpdateEmail.setBounds(115, 436, 154, 31);
 		panel_1.add(btnUpdateEmail);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
@@ -362,17 +385,65 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		btnNewButton.setBounds(394, 241, 143, 40);
 		panel_2.add(btnNewButton);
 		
-		JScrollPane scrollPathsPane = new JScrollPane();
-		scrollPathsPane.setBounds(132, 302, 734, 205);
+		scrollPathsPane = new JScrollPane();
+		scrollPathsPane.setBounds(105, 303, 777, 205);
 		panel_2.add(scrollPathsPane);
 		
 		tblPaths = new JTable();
 		scrollPathsPane.setViewportView(tblPaths);
 		
 		JButton btnNewButton_1 = new JButton("Actualizar");
-		btnNewButton_1.setBounds(132, 519, 117, 25);
+		btnNewButton_1.setBounds(115, 520, 117, 25);
 		panel_2.add(btnNewButton_1);
-	}
+		
+		///////////////BEGINS CHECKIN MODEL BUILDING //////////////////////////  		
+		final String infoCheckinColumns[] = {"IdCheckin", "Concepto", "Empleado", "Cargo", "Fecha", "Hora Registro"};
+		tableModelCheckin = new DefaultTableModel(infoCheckinColumns, 0);
+		tblCheckIn = new JTable(tableModelCheckin);
+		tblCheckIn.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tblCheckIn.getColumnModel().getColumn(0).setPreferredWidth(100);
+		tblCheckIn.getColumnModel().getColumn(1).setPreferredWidth(80);
+		tblCheckIn.getColumnModel().getColumn(2).setPreferredWidth(200);
+		tblCheckIn.getColumnModel().getColumn(3).setPreferredWidth(200);
+		tblCheckIn.getColumnModel().getColumn(4).setPreferredWidth(200);
+		tblCheckIn.getColumnModel().getColumn(5).setPreferredWidth(130);
+		scrollPaneCheckIn.setViewportView(tblCheckIn);
+		
+		///////////////BEGINS EMPLOYEE MODEL BUILDING //////////////////////////  		
+		final String infoEmployeeColumns[] = {"IdEmpleado", "Nombre", "Cargo", "Telefono", "Direccion"};
+		tableModelEmployee = new DefaultTableModel(infoEmployeeColumns, 0);
+		tableEmployee = new JTable(tableModelEmployee);
+		tableEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableEmployee.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tableEmployee.getColumnModel().getColumn(1).setPreferredWidth(150);
+		tableEmployee.getColumnModel().getColumn(2).setPreferredWidth(100);
+		tableEmployee.getColumnModel().getColumn(3).setPreferredWidth(80);
+		tableEmployee.getColumnModel().getColumn(4).setPreferredWidth(300);
+		scrollPaneEmployee.setViewportView(tableEmployee);
+		
+		///////////////BEGINS EMAIL CONFIG MODEL BUILDING //////////////////////////  		
+		final String infoEmailConfigColumns[] = {"IdEmail", "Email", "Contraseña", "ServicioActivo"};
+		tableModelEmailConfig = new DefaultTableModel(infoEmailConfigColumns, 0);
+		tblEmail = new JTable(tableModelEmailConfig);
+		tblEmail.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tblEmail.getColumnModel().getColumn(0).setPreferredWidth(80);
+		tblEmail.getColumnModel().getColumn(1).setPreferredWidth(300);
+		tblEmail.getColumnModel().getColumn(2).setPreferredWidth(250);
+		tblEmail.getColumnModel().getColumn(3).setPreferredWidth(100);
+		scrollEmailPane.setViewportView(tblEmail);
+		
+		///////////////BEGINS PATHS CONFIG MODEL BUILDING //////////////////////////  		
+		final String infoPathsColumns[] = {"IdPath", "CheckInPDF", "EmpleadoPDF"};
+		tableModelPaths = new DefaultTableModel(infoPathsColumns, 0);
+		tblPaths = new JTable(tableModelPaths);
+		tblPaths.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tblPaths.getColumnModel().getColumn(0).setPreferredWidth(100);
+		tblPaths.getColumnModel().getColumn(1).setPreferredWidth(350);
+		tblPaths.getColumnModel().getColumn(2).setPreferredWidth(350);
+		scrollPathsPane.setViewportView(tblPaths);
+		
+		
+		}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -380,4 +451,6 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 			lblClock.setText(sdf.format(new Date(System.currentTimeMillis())));
 		}
 	}
+
+
 }
