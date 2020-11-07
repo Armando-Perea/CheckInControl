@@ -3,11 +3,13 @@ package com.java.project.checkin;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.swing.SwingUtilities;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.java.project.checkin.gui.CheckinMainFrame;
 import com.java.project.checkin.models.SystemPaths;
 import com.java.project.checkin.utils.CheckinConstants;
 import com.java.project.checkin.repo.impl.SystemPathsRepoImpl;
@@ -25,7 +27,7 @@ public class CheckinApp {
 	SystemPathsRepoImpl systemPathsRepoImpl;
 	
     public static void main( String[] args ) {
-        SpringApplication.run(CheckinApp.class, args);
+    	    SpringApplication.run(CheckinApp.class, args);
     }
     
     @PostConstruct
@@ -35,5 +37,15 @@ public class CheckinApp {
 			CheckinConstants.CHECKIN_PATH = systemPathsList.get(0).getCheckinPdf();
 			CheckinConstants.EMPLOYEE_PATH = systemPathsList.get(0).getEmployeePdf();
 		}
+	}
+    
+    @PostConstruct
+	private void initializeMainFrame() {
+    	System.setProperty("java.awt.headless", "false");
+    	 SwingUtilities.invokeLater(() -> {
+ 	    	CheckinMainFrame checkin = new CheckinMainFrame();
+ 	    	checkin.setDefaultCloseOperation(CheckinMainFrame.EXIT_ON_CLOSE);
+ 	    	checkin.setVisible(true);
+ 	    });
 	}
 }
