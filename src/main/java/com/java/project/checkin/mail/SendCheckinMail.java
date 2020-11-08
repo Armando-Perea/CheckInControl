@@ -97,14 +97,14 @@ public class SendCheckinMail {
 		return sentOk;
 	}
 
-	public static void main(String[] args) throws Exception {
-		//LocalDateTime myDateObj = LocalDateTime.now();
-		List<SystemPaths> systemPathsList = Arrays.asList(SystemPathsClient.getAllSystemPaths());
-		if(!systemPathsList.isEmpty()) {
-			CheckinConstants.CHECKIN_PATH = systemPathsList.get(0).getCheckinPdf();
-			CheckinConstants.EMPLOYEE_PATH = systemPathsList.get(0).getEmployeePdf();
-		}
-		SendCheckinMail.sendMail();
-	}
+//	public static void main(String[] args) throws Exception {
+//		//LocalDateTime myDateObj = LocalDateTime.now();
+//		List<SystemPaths> systemPathsList = Arrays.asList(SystemPathsClient.getAllSystemPaths());
+//		if(!systemPathsList.isEmpty()) {
+//			CheckinConstants.CHECKIN_PATH = systemPathsList.get(0).getCheckinPdf();
+//			CheckinConstants.EMPLOYEE_PATH = systemPathsList.get(0).getEmployeePdf();
+//		}
+//		SendCheckinMail.sendMail();
+//	}
 	
 }

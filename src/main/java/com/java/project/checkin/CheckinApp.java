@@ -28,6 +28,7 @@ public class CheckinApp {
 	
     public static void main( String[] args ) {
     	    SpringApplication.run(CheckinApp.class, args);
+    	    initializeMainFrame();
     }
     
     @PostConstruct
@@ -39,8 +40,8 @@ public class CheckinApp {
 		}
 	}
     
-    @PostConstruct
-	private void initializeMainFrame() {
+    
+	private static void initializeMainFrame() {
     	System.setProperty("java.awt.headless", "false");
     	 SwingUtilities.invokeLater(() -> {
  	    	CheckinMainFrame checkin = new CheckinMainFrame();

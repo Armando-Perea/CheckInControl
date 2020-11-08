@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import org.apache.log4j.Logger;
 
 import com.java.project.checkin.client.SystemPathsClient;
+import com.java.project.checkin.mail.SendCheckinMail;
 import com.java.project.checkin.models.SystemPaths;
 import com.java.project.checkin.utils.CheckinConstants;
 
@@ -69,7 +70,18 @@ public class ReportGenerator {
 	           java.util.logging.Logger.getLogger(ReportGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	           logger.info(CheckinConstants.REPORT_GENERATION_ERROR+" "+ex);
 	       } 
-	    }   
+	    }  
+	
+	public static boolean generateAndSendReport() {
+		try {
+			ReportGenerator.checkinReport();
+			ReportGenerator.employeeReport();
+			SendCheckinMail.sendMail();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	
 //	public static void main(String []args) throws SQLException{

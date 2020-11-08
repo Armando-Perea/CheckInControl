@@ -8,13 +8,32 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.java.project.checkin.client.CheckInClient;
+import com.java.project.checkin.create.SaveCheckinInfo;
+import com.java.project.checkin.create.SaveEmailConfigInfo;
+import com.java.project.checkin.create.SaveEmployeeInfo;
+import com.java.project.checkin.create.SaveSystemPathsInfo;
+import com.java.project.checkin.delete.DeleteEmailConfigInfo;
+import com.java.project.checkin.delete.DeleteEmployeeInfo;
+import com.java.project.checkin.delete.DeleteSystemPaths;
+import com.java.project.checkin.mail.SendCheckinMail;
 import com.java.project.checkin.models.Employee;
+import com.java.project.checkin.read.ReadCheckinInfo;
+import com.java.project.checkin.read.ReadEmailInfo;
+import com.java.project.checkin.read.ReadEmployeeInfo;
+import com.java.project.checkin.read.ReadSystemPaths;
+import com.java.project.checkin.reports.ReportGenerator;
+import com.java.project.checkin.update.UpdateEmailConfig;
+import com.java.project.checkin.update.UpdateEmployeeInfo;
+import com.java.project.checkin.update.UpdateSystemPaths;
+import com.java.project.checkin.utils.ComboValuesValidation;
 
 import javax.swing.JTabbedPane;
 import javax.swing.Timer;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -47,6 +66,7 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 	public static  JTextField txtNewCheckinPdfPath;
 	public static  JTextField txtNewEmployPdfPath;
 	public static  JTextField txtNewEmail;
+	public static  JTextArea txtNewEmployeeAddress;
 	
 	
 	public static  JPasswordField txtNewEmployeePass;
@@ -70,6 +90,8 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 	public static DefaultTableModel tableModelPaths;
 	
 	public static  JComboBox<String> cmbCheckinEmployee;
+	public static  JComboBox<String> cmbCheckinConcept;
+	public static  JComboBox<String> cmbRole;
 	
 	public static  Employee[] employeeList;
 
@@ -88,11 +110,22 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 			}
 		});
 	}
+	
+	public CheckinMainFrame() {
+		setResizable(false);
+		initializeCheckInComponents();
+		ComboValuesValidation.initAllCombosProcess();
+		ReadCheckinInfo.fillAllCheckinTable();
+		ReadEmployeeInfo.fillAllEmployeeTable();
+		ReadEmailInfo.fillAllEmailTable();
+		ReadSystemPaths.fillAllPathsTable();
+		//conectionTest();
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public CheckinMainFrame() {
+	public void initializeCheckInComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 995, 684);
 		checkinPane = new JPanel();
@@ -120,7 +153,7 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		lblTitleCheckin.setBounds(33, 22, 256, 53);
 		checkinPanel.add(lblTitleCheckin);
 		
-		JComboBox cmbCheckinConcept = new JComboBox();
+		cmbCheckinConcept = new JComboBox();
 		cmbCheckinConcept.setModel(new DefaultComboBoxModel(new String[] {"ENTRADA", "SALIDA"}));
 		cmbCheckinConcept.setBounds(401, 201, 160, 36);
 		checkinPanel.add(cmbCheckinConcept);
@@ -159,8 +192,36 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		lblClock.setText(sdf.format(new Date(System.currentTimeMillis())));
 		
 		JButton btnCheckTime = new JButton("Registrar");
-		btnCheckTime.setBounds(408, 425, 139, 44);
+		btnCheckTime.setForeground(Color.WHITE);
+		btnCheckTime.setBackground(new Color(51, 153, 51));
+		btnCheckTime.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(SaveCheckinInfo.validateSaveCheckin()) {
+					SaveCheckinInfo.createNewCheckin();
+				}else {
+					JOptionPane.showMessageDialog(null, "Ingrese Password Por favor");
+				}
+			}
+		});
+		btnCheckTime.setBounds(401, 407, 139, 44);
 		checkinPanel.add(btnCheckTime);
+		
+		JButton btnSendCheckin = new JButton("Enviar Informe");
+		btnSendCheckin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(ReportGenerator.generateAndSendReport()) {
+					JOptionPane.showMessageDialog(null, "Informe enviado con éxito!");
+					CheckInClient.truncateCheckin();
+					ReadCheckinInfo.fillAllCheckinTable();
+				}else {
+					JOptionPane.showMessageDialog(null, "No es posible enviar informe");
+				}
+			}
+		});
+		btnSendCheckin.setForeground(Color.WHITE);
+		btnSendCheckin.setBackground(new Color(102, 51, 204));
+		btnSendCheckin.setBounds(728, 523, 171, 44);
+		checkinPanel.add(btnSendCheckin);
 		timer = new Timer(500, this);
 		timer.setRepeats(true);
 		timer.start();
@@ -220,6 +281,17 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		employeePanel.add(lblConcepto_4_2);
 		
 		JButton btnSaveEmployee = new JButton("Registrar Empleado");
+		btnSaveEmployee.setForeground(new Color(255, 255, 255));
+		btnSaveEmployee.setBackground(new Color(51, 153, 51));
+		btnSaveEmployee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(SaveEmployeeInfo.validateNewEmployeeSaveFields()) {
+					SaveEmployeeInfo.createNewEmployee();
+				}else {
+					JOptionPane.showMessageDialog(null, "Favor de Completar los Campos");
+				}
+			}
+		});
 		btnSaveEmployee.setBounds(160, 539, 185, 37);
 		employeePanel.add(btnSaveEmployee);
 		
@@ -233,12 +305,12 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		txtNewEmployeeTel.setBounds(125, 229, 213, 33);
 		employeePanel.add(txtNewEmployeeTel);
 		
-		JComboBox cmbRole = new JComboBox();
+		cmbRole = new JComboBox();
 		cmbRole.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Recepcionista", "Asistente", "Coordinador", "Director", "", ""}));
 		cmbRole.setBounds(126, 172, 219, 33);
 		employeePanel.add(cmbRole);
 		
-		JTextArea txtNewEmployeeAddress = new JTextArea();
+		txtNewEmployeeAddress = new JTextArea();
 		txtNewEmployeeAddress.setBackground(SystemColor.controlHighlight);
 		txtNewEmployeeAddress.setBounds(143, 287, 230, 108);
 		employeePanel.add(txtNewEmployeeAddress);
@@ -257,7 +329,14 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		employeePanel.add(lblNewLabel_1);
 		
 		JButton btnEraseEmployee = new JButton("Borrar");
-		btnEraseEmployee.setBounds(822, 479, 117, 25);
+		btnEraseEmployee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DeleteEmployeeInfo.deleteEmployee();
+			}
+		});
+		btnEraseEmployee.setForeground(Color.WHITE);
+		btnEraseEmployee.setBackground(Color.RED);
+		btnEraseEmployee.setBounds(827, 485, 117, 25);
 		employeePanel.add(btnEraseEmployee);
 		
 		JPanel adminPanel = new JPanel();
@@ -331,11 +410,29 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		scrollEmailPane.setViewportView(tblEmail);
 		
 		JButton btnSaveEmail = new JButton("Guardar");
+		btnSaveEmail.setForeground(Color.WHITE);
+		btnSaveEmail.setBackground(new Color(51, 153, 51));
+		btnSaveEmail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(SaveEmailConfigInfo.validateNewEmailConfigSaveFields()) {
+					SaveEmailConfigInfo.createNewEmailConfig();
+				}else {
+					JOptionPane.showMessageDialog(null, "Favor de Completar los Campos");
+				}
+			}
+		});
 		btnSaveEmail.setBounds(313, 204, 154, 31);
 		panel_1.add(btnSaveEmail);
 		
 		JButton btnUpdateEmail = new JButton("Actualizar");
-		btnUpdateEmail.setBounds(115, 436, 154, 31);
+		btnUpdateEmail.setForeground(Color.WHITE);
+		btnUpdateEmail.setBackground(Color.BLUE);
+		btnUpdateEmail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UpdateEmailConfig.updateEmailConfigInfo();
+			}
+		});
+		btnUpdateEmail.setBounds(115, 436, 117, 28);
 		panel_1.add(btnUpdateEmail);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
@@ -382,6 +479,17 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		panel_2.add(txtNewEmployPdfPath);
 		
 		JButton btnNewButton = new JButton("Guardar Paths");
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBackground(new Color(51, 153, 51));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(SaveSystemPathsInfo.validateNewPathsSaveFields()) {
+					SaveSystemPathsInfo.createNewEmailConfig();
+				}else {
+					JOptionPane.showMessageDialog(null, "Favor de Completar los Campos");
+				}
+			}
+		});
 		btnNewButton.setBounds(394, 241, 143, 40);
 		panel_2.add(btnNewButton);
 		
@@ -393,6 +501,13 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		scrollPathsPane.setViewportView(tblPaths);
 		
 		JButton btnNewButton_1 = new JButton("Actualizar");
+		btnNewButton_1.setBackground(Color.BLUE);
+		btnNewButton_1.setForeground(Color.WHITE);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UpdateSystemPaths.updatePathsInfo();
+			}
+		});
 		btnNewButton_1.setBounds(115, 520, 117, 25);
 		panel_2.add(btnNewButton_1);
 		
@@ -421,6 +536,17 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		tableEmployee.getColumnModel().getColumn(4).setPreferredWidth(300);
 		scrollPaneEmployee.setViewportView(tableEmployee);
 		
+		JButton btnUpdateEmployee = new JButton("Actualizar");
+		btnUpdateEmployee.setForeground(Color.WHITE);
+		btnUpdateEmployee.setBackground(Color.BLUE);
+		btnUpdateEmployee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UpdateEmployeeInfo.updateEmployeeInfo();
+			}
+		});
+		btnUpdateEmployee.setBounds(404, 485, 117, 25);
+		employeePanel.add(btnUpdateEmployee);
+		
 		///////////////BEGINS EMAIL CONFIG MODEL BUILDING //////////////////////////  		
 		final String infoEmailConfigColumns[] = {"IdEmail", "Email", "Contraseña", "ServicioActivo"};
 		tableModelEmailConfig = new DefaultTableModel(infoEmailConfigColumns, 0);
@@ -432,6 +558,17 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		tblEmail.getColumnModel().getColumn(3).setPreferredWidth(100);
 		scrollEmailPane.setViewportView(tblEmail);
 		
+		JButton btnEraseEmail = new JButton("Borrar");
+		btnEraseEmail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DeleteEmailConfigInfo.deleteEmail();
+			}
+		});
+		btnEraseEmail.setForeground(new Color(255, 255, 255));
+		btnEraseEmail.setBackground(new Color(255, 0, 0));
+		btnEraseEmail.setBounds(695, 438, 117, 25);
+		panel_1.add(btnEraseEmail);
+		
 		///////////////BEGINS PATHS CONFIG MODEL BUILDING //////////////////////////  		
 		final String infoPathsColumns[] = {"IdPath", "CheckInPDF", "EmpleadoPDF"};
 		tableModelPaths = new DefaultTableModel(infoPathsColumns, 0);
@@ -441,6 +578,17 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		tblPaths.getColumnModel().getColumn(1).setPreferredWidth(350);
 		tblPaths.getColumnModel().getColumn(2).setPreferredWidth(350);
 		scrollPathsPane.setViewportView(tblPaths);
+		
+		JButton btnErasePath = new JButton("Borrar");
+		btnErasePath.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DeleteSystemPaths.deleteSystemPath();
+			}
+		});
+		btnErasePath.setBackground(Color.RED);
+		btnErasePath.setForeground(Color.WHITE);
+		btnErasePath.setBounds(732, 520, 117, 25);
+		panel_2.add(btnErasePath);
 		
 		
 		}
