@@ -2,7 +2,7 @@ package com.java.project.checkin.delete;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.java.project.checkin.client.EmployeeClient;
 import com.java.project.checkin.gui.CheckinMainFrame;
@@ -40,7 +40,7 @@ public class DeleteEmployeeInfo {
 						JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (Exception ex) {
-			logger.error("ERROR AT DELETE EMPLOYEE: " + ex);
+			logger.warning("ERROR AT DELETE EMPLOYEE: " + ex);
 			JOptionPane.showMessageDialog(null, EMPLOYEE_DELETED_FAILED+ " Exception Detected!", VALIDATION_UPDATE_TITLE,
 					JOptionPane.INFORMATION_MESSAGE);
 		}

@@ -112,7 +112,6 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 	}
 	
 	public CheckinMainFrame() {
-		setResizable(false);
 		initializeCheckInComponents();
 		ComboValuesValidation.initAllCombosProcess();
 		ReadCheckinInfo.fillAllCheckinTable();
@@ -126,6 +125,7 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public void initializeCheckInComponents() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 995, 684);
 		checkinPane = new JPanel();
@@ -142,8 +142,9 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		tabbedCheckinPane.addTab("Check In", null, checkinPanel, null);
 		checkinPanel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(CheckinMainFrame.class.getResource("/com/java/project/checkin/gui/makeUpImage.jpg")));
+		JLabel lblNewLabel = new JLabel();
+		ImageIcon icon1 = new ImageIcon(CheckinMainFrame.class.getResource("/com/java/project/checkin/images/makeUpImage.jpg"));
+		lblNewLabel.setIcon(icon1);
 		lblNewLabel.setBounds(709, 12, 208, 131);
 		checkinPanel.add(lblNewLabel);
 		
@@ -324,7 +325,7 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		employeePanel.add(txtNewEmployeePassConfirm);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(CheckinMainFrame.class.getResource("/com/java/project/checkin/gui/makeUpImage.jpg")));
+		lblNewLabel_1.setIcon(new ImageIcon(CheckinMainFrame.class.getResource("/com/java/project/checkin/images/makeUpImage.jpg")));
 		lblNewLabel_1.setBounds(708, 24, 208, 91);
 		employeePanel.add(lblNewLabel_1);
 		
@@ -366,7 +367,7 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		scrollPaneCheckIn.setViewportView(tblCheckIn);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(CheckinMainFrame.class.getResource("/com/java/project/checkin/gui/makeUpImage.jpg")));
+		lblNewLabel_2.setIcon(new ImageIcon(CheckinMainFrame.class.getResource("/com/java/project/checkin/images/makeUpImage.jpg")));
 		lblNewLabel_2.setBounds(750, 12, 202, 94);
 		panel.add(lblNewLabel_2);
 		
@@ -436,7 +437,7 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		panel_1.add(btnUpdateEmail);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(CheckinMainFrame.class.getResource("/com/java/project/checkin/gui/makeUpImage.jpg")));
+		lblNewLabel_3.setIcon(new ImageIcon(CheckinMainFrame.class.getResource("/com/java/project/checkin/images/makeUpImage.jpg")));
 		lblNewLabel_3.setBounds(731, 23, 216, 90);
 		panel_1.add(lblNewLabel_3);
 		
@@ -452,7 +453,7 @@ public class CheckinMainFrame extends JFrame implements ActionListener{
 		panel_2.add(lblPathsDeReportes);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon(CheckinMainFrame.class.getResource("/com/java/project/checkin/gui/makeUpImage.jpg")));
+		lblNewLabel_4.setIcon(new ImageIcon(CheckinMainFrame.class.getResource("/com/java/project/checkin/images/makeUpImage.jpg")));
 		lblNewLabel_4.setBounds(704, 28, 217, 106);
 		panel_2.add(lblNewLabel_4);
 		

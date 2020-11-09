@@ -6,7 +6,7 @@ import java.util.Locale;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.java.project.checkin.client.CheckInClient;
 import com.java.project.checkin.client.EmployeeClient;
@@ -52,7 +52,7 @@ public class SaveCheckinInfo {
 					JOptionPane.showMessageDialog(null, CHECKIN_SAVE_FAILED);
 				}
 			} catch (Exception ex) {
-				logger.info("ERROR: " + ex);
+				logger.warning("ERROR: " + ex);
 				JOptionPane.showMessageDialog(null, CHECKIN_SAVE_FAILED);
 			}
 		}else {

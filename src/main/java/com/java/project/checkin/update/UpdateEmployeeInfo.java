@@ -2,7 +2,7 @@ package com.java.project.checkin.update;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.java.project.checkin.client.EmployeeClient;
 import com.java.project.checkin.gui.CheckinMainFrame;
@@ -67,7 +67,7 @@ public class UpdateEmployeeInfo {
 						JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (Exception ex) {
-			logger.error("ERROR AT EMPLOYEE: " + ex);
+			logger.warning("ERROR AT EMPLOYEE: " + ex);
 			JOptionPane.showMessageDialog(null, EMPLOYEE_UPDATE_FAILED, VALIDATION_UPDATE_TITLE,
 					JOptionPane.INFORMATION_MESSAGE);
 		}

@@ -2,7 +2,7 @@ package com.java.project.checkin.controller;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.java.project.checkin.models.CheckIn;
 import com.java.project.checkin.repo.impl.CheckInRepoImpl;
 
-import lombok.extern.log4j.Log4j;
 
-@Log4j
 @RestController
 @RequestMapping("checkincontrol/system/checkin")
 public class CheckInController {
+	
+	private static Logger log = Logger.getLogger(CheckInController.class.getName());
 	
 	@Autowired
 	CheckInRepoImpl checkInRepoImpl;

@@ -95,13 +95,6 @@
 		    <version>1.2.17</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/log4j/apache-log4j-extras -->
-		<dependency>
-		    <groupId>log4j</groupId>
-		    <artifactId>apache-log4j-extras</artifactId>
-		    <version>1.2.17</version>
-		</dependency>
-		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -118,7 +111,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
     
@@ -136,11 +128,13 @@
 			<configuration>
 				<archive>
 					<manifest>
-						<mainClass>com.java.project.checkin.CheckInApp</mainClass>
+						<mainClass>com.java.project.checkin.CheckinApp</mainClass>
 					</manifest>
 				</archive>
 			</configuration>
 		</plugin>
 		</plugins>
 </build>
+
+
 </project>

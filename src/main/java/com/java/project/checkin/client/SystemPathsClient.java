@@ -1,6 +1,6 @@
 package com.java.project.checkin.client;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -32,7 +32,7 @@ public class SystemPathsClient {
 			logger.info("Before Returning all SystemPaths");
 			return checkIn;
 		} catch (Exception ex) {
-			logger.error("ERROR GET ALL CHECKIN: " + ex);
+			logger.warning("ERROR GET ALL CHECKIN: " + ex);
 		}
 		return checkIn;
 	}
@@ -51,7 +51,7 @@ public class SystemPathsClient {
 			logger.info("Before Returning getSystemPathById");
 			return cartSale;
 		} catch (Exception ex) {
-			logger.error("ERROR GET CASH BY ID: " + ex);
+			logger.warning("ERROR GET CASH BY ID: " + ex);
 		}
 		return cartSale;
 	}
@@ -69,7 +69,7 @@ public class SystemPathsClient {
 			logger.info("Before Returning addSystemPath");
 			return systemPathsResp;
 		} catch (Exception ex) {
-			logger.error("addSystemPath: " + systemPathsResp.toString());
+			logger.warning("addSystemPath: " + systemPathsResp.toString());
 		}
 		return systemPathsResp;
 	}
@@ -90,7 +90,7 @@ public class SystemPathsClient {
 					|| HttpStatus.INTERNAL_SERVER_ERROR.equals(httpClientOrServerExc.getStatusCode())) {
 				status = httpClientOrServerExc.getRawStatusCode();
 			}
-			logger.error("Catch Returning updateSystemPath " + systemPaths.toString());
+			logger.warning("Catch Returning updateSystemPath " + systemPaths.toString());
 			return status;
 		}
 		logger.info("Before Returning updateSystemPath");
@@ -110,7 +110,7 @@ public class SystemPathsClient {
 			HttpStatus statusResponse = ClientResponseHandler.getHttpResponse(response);
 			status = statusResponse.value();
 		} catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
-			logger.error("ERROR deleteSystemPath: " + httpClientOrServerExc);
+			logger.warning("ERROR deleteSystemPath: " + httpClientOrServerExc);
 			status = httpClientOrServerExc.getRawStatusCode();
 			return status;
 		}
@@ -132,7 +132,7 @@ public class SystemPathsClient {
 			logger.info("Before Returning truncateSystemaPaths");
 			return resp;
 		} catch (Exception ex) {
-			logger.error("ERROR TRUNCATE PATHS " + ex);
+			logger.warning("ERROR TRUNCATE PATHS " + ex);
 		}
 		return resp;
 	}

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 public class ReportConnection {
 
@@ -17,7 +17,7 @@ public class ReportConnection {
 			Class.forName("org.gjt.mm.mysql.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://localhost:33061/checkincontrol?useSSL=false", "root", "mysql");
 		} catch (Exception e) {
-			logger.info("Connection Report Exception: "+e.getMessage());
+			logger.warning("Connection Report Exception: "+e.getMessage());
 		}
 		return connect;
 	}

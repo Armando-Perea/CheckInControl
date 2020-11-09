@@ -2,7 +2,7 @@ package com.java.project.checkin.update;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.java.project.checkin.client.EmailConfigClient;
 import com.java.project.checkin.gui.CheckinMainFrame;
@@ -64,7 +64,7 @@ public class UpdateEmailConfig {
 				JOptionPane.showMessageDialog(null, SELECT_EMAIL, VALIDATION_UPDATE_TITLE, JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (Exception ex) {
-			logger.error("ERROR AT EMAIL: " + ex);
+			logger.warning("ERROR AT UPDATE EMAIL: " + ex);
 			JOptionPane.showMessageDialog(null, EMAIL_UPDATE_FAILED, VALIDATION_UPDATE_TITLE,
 					JOptionPane.INFORMATION_MESSAGE);
 		}

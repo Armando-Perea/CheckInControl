@@ -2,7 +2,7 @@ package com.java.project.checkin.update;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.java.project.checkin.client.SystemPathsClient;
 import com.java.project.checkin.gui.CheckinMainFrame;
@@ -54,7 +54,7 @@ public class UpdateSystemPaths {
 				JOptionPane.showMessageDialog(null, SELECT_PATHS, VALIDATION_UPDATE_TITLE, JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (Exception ex) {
-			logger.error("ERROR AT UPDATE PATH: " + ex);
+			logger.warning("ERROR AT UPDATE PATH: " + ex);
 			JOptionPane.showMessageDialog(null, PATHS_UPDATE_FAILED, VALIDATION_UPDATE_TITLE,
 					JOptionPane.INFORMATION_MESSAGE);
 		}

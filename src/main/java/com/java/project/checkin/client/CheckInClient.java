@@ -1,6 +1,7 @@
 package com.java.project.checkin.client;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -32,7 +33,7 @@ public class CheckInClient {
 			logger.info("Before Returning all checkIn");
 			return checkIn;
 		} catch (Exception ex) {
-			logger.error("ERROR GET ALL CHECKIN: " + ex);
+			logger.warning("ERROR GET ALL CHECKIN: " + ex);
 		}
 		return checkIn;
 	}
@@ -51,7 +52,7 @@ public class CheckInClient {
 			logger.info("Before Returning getCheckInById");
 			return checkIn;
 		} catch (Exception ex) {
-			logger.error("ERROR GET CHECKIN BY ID: " + ex);
+			logger.warning("ERROR GET CHECKIN BY ID: " + ex);
 		}
 		return checkIn;
 	}
@@ -70,7 +71,7 @@ public class CheckInClient {
 			logger.info("Before Returning getCheckInByName");
 			return checkIn;
 		} catch (Exception ex) {
-			logger.error("ERROR GET CHECKIN NAME: " + ex);
+			logger.warning("ERROR GET CHECKIN NAME: " + ex);
 		}
 		return checkIn;
 	}
@@ -88,7 +89,7 @@ public class CheckInClient {
 			logger.info("Before Returning addCheckIn");
 			return checkInResponse;
 		} catch (Exception ex) {
-			logger.error("addCheckIn: " + checkInResponse.toString());
+			logger.warning("addCheckIn: " + checkInResponse.toString());
 		}
 		return checkInResponse;
 	}
@@ -109,7 +110,7 @@ public class CheckInClient {
 					|| HttpStatus.INTERNAL_SERVER_ERROR.equals(httpClientOrServerExc.getStatusCode())) {
 				status = httpClientOrServerExc.getRawStatusCode();
 			}
-			logger.error("Catch Returning updateCheckIn " + checkIn.toString());
+			logger.warning("Catch Returning updateCheckIn " + checkIn.toString());
 			return status;
 		}
 		logger.info("Before Returning updateCheckIn");
@@ -129,7 +130,7 @@ public class CheckInClient {
 			HttpStatus statusResponse = ClientResponseHandler.getHttpResponse(response);
 			status = statusResponse.value();
 		} catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
-			logger.error("ERROR deleteCheckIn: " + httpClientOrServerExc);
+			logger.warning("ERROR deleteCheckIn: " + httpClientOrServerExc);
 			status = httpClientOrServerExc.getRawStatusCode();
 			return status;
 		}
@@ -151,7 +152,7 @@ public class CheckInClient {
 			logger.info("Before Returning truncateCheckin");
 			return resp;
 		} catch (Exception ex) {
-			logger.error("ERROR TRUNCATE CHECKIN: " + ex);
+			logger.warning("ERROR TRUNCATE CHECKIN: " + ex);
 		}
 		return resp;
 	}

@@ -2,7 +2,7 @@ package com.java.project.checkin.create;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.java.project.checkin.client.EmployeeClient;
 import com.java.project.checkin.gui.CheckinMainFrame;
@@ -40,7 +40,7 @@ public class SaveEmployeeInfo {
 					JOptionPane.showMessageDialog(null, EMPLOYEE_SAVE_FAILED);
 				}
 			} catch (Exception ex) {
-				logger.error("ERROR: " + ex);
+				logger.warning("ERROR: " + ex);
 				JOptionPane.showMessageDialog(null, EMPLOYEE_SAVE_EXC);
 			}
 		} else {

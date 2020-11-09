@@ -1,6 +1,6 @@
 package com.java.project.checkin.client;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -32,7 +32,7 @@ public class EmployeeClient {
 			logger.info("Before Returning getAllEmployee");
 			return employees;
 		} catch (Exception ex) {
-			logger.error("ERROR GET ALL EMPLOYEES: " + ex);
+			logger.warning("ERROR GET ALL EMPLOYEES: " + ex);
 		}
 		return employees;
 	}
@@ -51,7 +51,7 @@ public class EmployeeClient {
 			logger.info("Before Returning getAdminById");
 			return employee;
 		} catch (Exception ex) {
-			logger.error("ERROR GET ADMIN BY ID: " + ex);
+			logger.warning("ERROR GET ADMIN BY ID: " + ex);
 		}
 		return employee;
 	}
@@ -70,7 +70,7 @@ public class EmployeeClient {
 			logger.info("Before Returning getEmployeeByName");
 			return Administrators;
 		} catch (Exception ex) {
-			logger.error("ERROR GET EMPLOYEE NAME: " + ex);
+			logger.warning("ERROR GET EMPLOYEE NAME: " + ex);
 		}
 		return Administrators;
 	}
@@ -88,7 +88,7 @@ public class EmployeeClient {
 			logger.info("Before Returning addEmployee");
 			return employee;
 		} catch (Exception ex) {
-			logger.error("ADMINISTRATOR: " + administratorResponse.toString());
+			logger.warning("ADMINISTRATOR: " + administratorResponse.toString());
 		}
 		return administratorResponse;
 	}
@@ -109,7 +109,7 @@ public class EmployeeClient {
 					|| HttpStatus.INTERNAL_SERVER_ERROR.equals(httpClientOrServerExc.getStatusCode())) {
 				status = httpClientOrServerExc.getRawStatusCode();
 			}
-			logger.error("Catch Returning updateEmployee " + employee.toString());
+			logger.warning("Catch Returning updateEmployee " + employee.toString());
 			return status;
 		}
 		logger.info("Before Returning updateEmployee");
@@ -129,7 +129,7 @@ public class EmployeeClient {
 			HttpStatus statusResponse = ClientResponseHandler.getHttpResponse(response);
 			status = statusResponse.value();
 		} catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
-			logger.error("ERROR deleteEmployee: " + httpClientOrServerExc);
+			logger.warning("ERROR deleteEmployee: " + httpClientOrServerExc);
 			status = httpClientOrServerExc.getRawStatusCode();
 			return status;
 		}
@@ -151,7 +151,7 @@ public class EmployeeClient {
 			logger.info("Before Returning truncateEmployee");
 			return resp;
 		} catch (Exception ex) {
-			logger.error("ERROR TRUNCATE EMPLOYEE " + ex);
+			logger.warning("ERROR TRUNCATE EMPLOYEE " + ex);
 		}
 		return resp;
 	}

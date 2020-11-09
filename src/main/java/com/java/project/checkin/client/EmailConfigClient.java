@@ -1,6 +1,6 @@
 package com.java.project.checkin.client;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -32,7 +32,7 @@ public class EmailConfigClient {
 			logger.info("Before Returning all emailConfig");
 			return emailConfig;
 		} catch (Exception ex) {
-			logger.error("ERROR GET ALL EMAILCONFIG: " + ex);
+			logger.warning("ERROR GET ALL EMAILCONFIG: " + ex);
 		}
 		return emailConfig;
 	}
@@ -51,7 +51,7 @@ public class EmailConfigClient {
 			logger.info("Before Returning getClosureById");
 			return emailConfig;
 		} catch (Exception ex) {
-			logger.error("ERROR GET EMAIL CONFIG BY ID: " + ex);
+			logger.warning("ERROR GET EMAIL CONFIG BY ID: " + ex);
 		}
 		return emailConfig;
 	}
@@ -69,7 +69,7 @@ public class EmailConfigClient {
 			logger.info("Before Returning addClosure");
 			return emailConfigResponse;
 		} catch (Exception ex) {
-			logger.error("addClosure: " + emailConfigResponse.toString());
+			logger.warning("addClosure: " + emailConfigResponse.toString());
 		}
 		return emailConfigResponse;
 	}
@@ -90,7 +90,7 @@ public class EmailConfigClient {
 					|| HttpStatus.INTERNAL_SERVER_ERROR.equals(httpClientOrServerExc.getStatusCode())) {
 				status = httpClientOrServerExc.getRawStatusCode();
 			}
-			logger.error("Catch Returning updateEmailConfig " + emailConfig.toString());
+			logger.warning("Catch Returning updateEmailConfig " + emailConfig.toString());
 			return status;
 		}
 		logger.info("Before Returning updateEmailConfig");
@@ -110,7 +110,7 @@ public class EmailConfigClient {
 			HttpStatus statusResponse = ClientResponseHandler.getHttpResponse(response);
 			status = statusResponse.value();
 		} catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
-			logger.error("ERROR deleteEmailConfig: " + httpClientOrServerExc);
+			logger.warning("ERROR deleteEmailConfig: " + httpClientOrServerExc);
 			status = httpClientOrServerExc.getRawStatusCode();
 			return status;
 		}
@@ -132,7 +132,7 @@ public class EmailConfigClient {
 			logger.info("Before Returning truncateEmailConfig");
 			return resp;
 		} catch (Exception ex) {
-			logger.error("ERROR TRUNCATE EMAILCONFIG " + ex);
+			logger.warning("ERROR TRUNCATE EMAILCONFIG " + ex);
 		}
 		return resp;
 	}

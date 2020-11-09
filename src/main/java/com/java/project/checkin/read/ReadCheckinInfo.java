@@ -2,7 +2,7 @@ package com.java.project.checkin.read;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.java.project.checkin.client.CheckInClient;
 import com.java.project.checkin.gui.CheckinMainFrame;
@@ -13,9 +13,6 @@ public class ReadCheckinInfo {
 	private static Logger logger = Logger.getLogger(ReadCheckinInfo.class.getName());
    	private static final String CHECKIN_EXCEPTION = "Excepcion al consultar Checkin Info";
 	
-	/**
-	 * searchByStudentName search process to be shown at list table. {"IdEmail", "Descripcion","Contraseña"};
-	 */ 
 	public static void fillAllCheckinTable() {
 		try {
 			CheckIn[] checkInList ;
@@ -31,7 +28,7 @@ public class ReadCheckinInfo {
 				CheckinMainFrame.tableModelCheckin.setRowCount(0);
 				}
 		}catch(Exception ex) {
-			logger.error("EXCEPCION AL CONSULTAR CHECKIN: "+ex);
+			logger.warning("EXCEPCION AL CONSULTAR CHECKIN: "+ex);
 			JOptionPane.showMessageDialog(null, CHECKIN_EXCEPTION);
 		}
 		

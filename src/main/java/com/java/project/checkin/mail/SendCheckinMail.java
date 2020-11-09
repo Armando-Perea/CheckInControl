@@ -1,7 +1,5 @@
 package com.java.project.checkin.mail;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -19,7 +17,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.java.project.checkin.client.EmailConfigClient;
 import com.java.project.checkin.client.SystemPathsClient;
@@ -37,8 +35,6 @@ public class SendCheckinMail {
 		boolean sentOk = true;
 		bodyClosureMail = "";
 		EmailConfig emailConfig = EmailConfigClient.getEmailConfigById(1);
-		System.out.println("EMAIL CONFIG: "+emailConfig.toString());
-		SystemPaths paths = SystemPathsClient.getSystemPathById(1);
 		Properties props = new Properties();
 		props.put(MailAuthData.SMPT_AUTH, MailAuthData.SMTP_ENABLE);
 		props.put(MailAuthData.SMPT_STARTTLS, MailAuthData.SMTP_ENABLE);
@@ -50,8 +46,8 @@ public class SendCheckinMail {
 					return new PasswordAuthentication(EncryptSecurity.decrypt(emailConfig.getEmail()),
 							EncryptSecurity.decrypt(emailConfig.getPassword()));
 				} catch (Exception e) {
-					logger.error("Exception: "+e.getMessage());
-					logger.error(MailAuthData.FAIL_AUTH);
+					logger.warning("Exception: "+e.getMessage());
+					logger.warning(MailAuthData.FAIL_AUTH);
 				}
 				return null;
 			}
@@ -88,23 +84,12 @@ public class SendCheckinMail {
 			message.setContent(multipart);
 			Transport.send(message);
 			logger.info("Emails Successfully Sent!");
-			System.out.println("Emails Successfully Sent!");
 		} catch (MessagingException e) {
-			logger.error("Exception Sending Mail: "+e.getMessage());
+			logger.warning("Exception Sending Mail: "+e.getMessage());
 			sentOk = false;
 			return sentOk;
 		}
 		return sentOk;
 	}
-
-//	public static void main(String[] args) throws Exception {
-//		//LocalDateTime myDateObj = LocalDateTime.now();
-//		List<SystemPaths> systemPathsList = Arrays.asList(SystemPathsClient.getAllSystemPaths());
-//		if(!systemPathsList.isEmpty()) {
-//			CheckinConstants.CHECKIN_PATH = systemPathsList.get(0).getCheckinPdf();
-//			CheckinConstants.EMPLOYEE_PATH = systemPathsList.get(0).getEmployeePdf();
-//		}
-//		SendCheckinMail.sendMail();
-//	}
 	
 }

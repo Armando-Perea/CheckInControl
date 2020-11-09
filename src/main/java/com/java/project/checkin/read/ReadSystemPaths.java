@@ -2,7 +2,7 @@ package com.java.project.checkin.read;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.java.project.checkin.client.SystemPathsClient;
 import com.java.project.checkin.gui.CheckinMainFrame;
@@ -28,7 +28,7 @@ public class ReadSystemPaths {
 				CheckinMainFrame.tableModelPaths.setRowCount(0);
 			}
 		} catch (Exception ex) {
-			logger.error("EXCEPCION AL CONSULTAR EMPLOYEES: " + ex);
+			logger.warning("EXCEPCION AL CONSULTAR EMPLOYEES: " + ex);
 			JOptionPane.showMessageDialog(null, CHECKIN_EXCEPTION);
 		}
 

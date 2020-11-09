@@ -2,7 +2,7 @@ package com.java.project.checkin.delete;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.java.project.checkin.client.EmailConfigClient;
 import com.java.project.checkin.gui.CheckinMainFrame;
@@ -38,7 +38,7 @@ public class DeleteEmailConfigInfo {
 						JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (Exception ex) {
-			logger.error("ERROR AT DELETE EMAIL: " + ex);
+			logger.warning("ERROR AT DELETE EMAIL: " + ex);
 			JOptionPane.showMessageDialog(null, EMAIL_DELETED_FAILED+ " Exception Detected!", VALIDATION_UPDATE_TITLE,
 					JOptionPane.INFORMATION_MESSAGE);
 		}

@@ -15,6 +15,5 @@ public class MailAuthData {
     public static final String FAIL_REPORT="Favor de enviar Reportes a : makeuplifeadm@gmail.com ";
     public static final String FAIL_AUTH="Problemas al descifrar usuario y constraseña";
     public static final String CLOSURE_NOTIF="Reporte Checador MakeUpLife Studio ";
-  	// "C:\\NewYorkCoffeeReports\\ReporteVentas.pdf";
     
 }

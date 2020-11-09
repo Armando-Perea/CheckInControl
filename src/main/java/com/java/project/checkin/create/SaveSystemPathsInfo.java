@@ -2,7 +2,7 @@ package com.java.project.checkin.create;
 
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 import com.java.project.checkin.client.SystemPathsClient;
 import com.java.project.checkin.gui.CheckinMainFrame;
 import com.java.project.checkin.models.SystemPaths;
@@ -30,7 +30,7 @@ public class SaveSystemPathsInfo {
 				JOptionPane.showMessageDialog(null, PATH_SAVE_FAILED);
 			}
 		} catch (Exception ex) {
-			logger.error("ERROR: " + ex);
+			logger.warning("ERROR: " + ex);
 			JOptionPane.showMessageDialog(null, PATH_SAVE_EXC);
 		}
 
