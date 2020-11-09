@@ -57,6 +57,7 @@ public class SaveCheckinInfo {
 			}
 		}else {
 			JOptionPane.showMessageDialog(null, INVALID_PASSWORD);
+			CheckinMainFrame.txtCheckinPass.setText(null);
 		}
 	}
 

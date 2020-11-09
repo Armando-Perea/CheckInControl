@@ -15,7 +15,7 @@ public class ReportConnection {
 	public Connection conexion() {
 		try {
 			Class.forName("org.gjt.mm.mysql.Driver");
-			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/checkincontrol?useSSL=false", "root", "mysql");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost:33061/checkincontrol?useSSL=false", "root", "mysql");
 		} catch (Exception e) {
 			logger.warning("Connection Report Exception: "+e.getMessage());
 		}
