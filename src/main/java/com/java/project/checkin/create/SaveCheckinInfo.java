@@ -42,7 +42,7 @@ public class SaveCheckinInfo {
 				checkIn.setRole(ComboValuesValidation
 						.getRoleFromComboInfo((String) CheckinMainFrame.cmbCheckinEmployee.getSelectedItem()));
 				checkIn.setArrivalDate(formattedDate);
-				checkIn.setArrivalHour(getHour() + ":" + getMinutes()+ ":"+getSeconds());
+				checkIn.setArrivalHour(getHour() + ":" + getMinutes()+ ":"+getSeconds()+" "+getAMPM());
 				checkIn = CheckInClient.addCheckIn(checkIn);
 				if (checkIn != null) {
 					JOptionPane.showMessageDialog(null, CHECKIN_SAVE_SUCCESSFULLY+checkIn.getEmployeename());
@@ -100,6 +100,14 @@ public class SaveCheckinInfo {
 			return "0"+second;
 		}
 		return second.toString();
+	}
+	
+	public static String getAMPM() {
+		Integer hour = LocalDateTime.now().getHour();
+		if(hour<12) {
+			return "AM";
+		}
+		return "PM";
 	}
 
 }
