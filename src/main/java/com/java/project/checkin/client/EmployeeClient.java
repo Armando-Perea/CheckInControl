@@ -10,13 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import com.java.project.checkin.CheckinApp;
 import com.java.project.checkin.models.Employee;
 
 public class EmployeeClient {
 
 	public static Logger logger = Logger.getLogger(EmployeeClient.class.getName());
+	
+	public static final String SYSTEM_URL = "http://localhost:3001/checkincontrol/system";
 
 	public static Employee[] getAllEmployees() {
 		HttpHeaders headers = new HttpHeaders();
@@ -24,7 +24,7 @@ public class EmployeeClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/employee/getAllEmployee";
+			String url = SYSTEM_URL + "/employee/getAllEmployee";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<Employee[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					Employee[].class);
@@ -43,7 +43,7 @@ public class EmployeeClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/employee/getEmployeeById/{id}";
+			String url = SYSTEM_URL + "/employee/getEmployeeById/{id}";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<Employee> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					Employee.class, id);
@@ -62,7 +62,7 @@ public class EmployeeClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/employee/getEmployeeByName/{name}";
+			String url = SYSTEM_URL + "/employee/getEmployeeByName/{name}";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<Employee[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					Employee[].class, name);
@@ -81,7 +81,7 @@ public class EmployeeClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/employee/createEmployee";
+			String url = SYSTEM_URL + "/employee/createEmployee";
 			HttpEntity<Employee> requestEntity = new HttpEntity<Employee>(employee, headers);
 			ResponseEntity<Employee> result = restTemplate.postForEntity(url, requestEntity, Employee.class);
 			administratorResponse = result.getBody();
@@ -98,7 +98,7 @@ public class EmployeeClient {
 		int status = 200;
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = CheckinApp.SYSTEM_URL + "/employee/updateEmployee";
+		String url = SYSTEM_URL + "/employee/updateEmployee";
 		HttpEntity<Employee> requestEntity = new HttpEntity<Employee>(employee, headers);
 		try {
 			ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
@@ -121,7 +121,7 @@ public class EmployeeClient {
 		int status = 200;
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = CheckinApp.SYSTEM_URL + "/employee/deleteEmployee/{id}";
+		String url = SYSTEM_URL + "/employee/deleteEmployee/{id}";
 		HttpEntity<Employee> requestEntity = new HttpEntity<Employee>(headers);
 		try {
 			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, String.class,
@@ -143,7 +143,7 @@ public class EmployeeClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/employee/truncateEmployee";
+			String url = SYSTEM_URL + "/employee/truncateEmployee";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					String.class);
