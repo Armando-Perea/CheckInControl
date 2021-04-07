@@ -54,11 +54,11 @@ public class EmployeeClientTest {
 
 	public static void main(String[] args) {
 		EmployeeClientTest employeeClientTest = new EmployeeClientTest();
-		employeeClientTest.createDummyEmployee();
+		//employeeClientTest.createDummyEmployee();
 		//employeeClientTest.updateDummyEmployee();
 		//employeeClientTest.getEmployeeById(2);
 		//employeeClientTest.getEmployeeByName("TEST");
-		//employeeClientTest.getAllEmployee();
+		employeeClientTest.getAllEmployee();
 		//employeeClientTest.deleteEmployee(2);
 		// EVERYTHING WORKING OK !!!
 	}

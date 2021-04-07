@@ -10,13 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import com.java.project.checkin.CheckinApp;
 import com.java.project.checkin.models.SystemPaths;
 
 public class SystemPathsClient {
 	
 	public static Logger logger = Logger.getLogger(SystemPathsClient.class.getName());
+	
+	public static final String SYSTEM_URL = "http://localhost:3001/checkincontrol/system";
 
 	public static SystemPaths[] getAllSystemPaths() {
 		HttpHeaders headers = new HttpHeaders();
@@ -24,7 +24,7 @@ public class SystemPathsClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/systempaths/getAllSystemPaths";
+			String url = SYSTEM_URL + "/systempaths/getAllSystemPaths";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<SystemPaths[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					SystemPaths[].class);
@@ -43,7 +43,7 @@ public class SystemPathsClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/systempaths/getSystemPathById/{id}";
+			String url = SYSTEM_URL + "/systempaths/getSystemPathById/{id}";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<SystemPaths> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, SystemPaths.class,
 					id);
@@ -62,7 +62,7 @@ public class SystemPathsClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/systempaths/createSystemPath";
+			String url = SYSTEM_URL + "/systempaths/createSystemPath";
 			HttpEntity<SystemPaths> requestEntity = new HttpEntity<SystemPaths>(systemPaths, headers);
 			ResponseEntity<SystemPaths> result = restTemplate.postForEntity(url, requestEntity, SystemPaths.class);
 			systemPathsResp = result.getBody();
@@ -79,7 +79,7 @@ public class SystemPathsClient {
 		int status = 200;
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = CheckinApp.SYSTEM_URL + "/systempaths/updateSystemPath";
+		String url = SYSTEM_URL + "/systempaths/updateSystemPath";
 		HttpEntity<SystemPaths> requestEntity = new HttpEntity<SystemPaths>(systemPaths, headers);
 		try {
 			ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
@@ -102,7 +102,7 @@ public class SystemPathsClient {
 		int status = 200;
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = CheckinApp.SYSTEM_URL + "/systempaths/deleteSystemPath/{id}";
+		String url = SYSTEM_URL + "/systempaths/deleteSystemPath/{id}";
 		HttpEntity<SystemPaths> requestEntity = new HttpEntity<SystemPaths>(headers);
 		try {
 			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, String.class,
@@ -124,7 +124,7 @@ public class SystemPathsClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/systempaths/truncateSystemPaths";
+			String url = SYSTEM_URL + "/systempaths/truncateSystemPaths";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					String.class);

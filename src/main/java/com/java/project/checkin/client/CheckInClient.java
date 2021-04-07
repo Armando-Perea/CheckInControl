@@ -11,13 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import com.java.project.checkin.CheckinApp;
 import com.java.project.checkin.models.CheckIn;
 
 public class CheckInClient {
 
 	public static Logger logger = Logger.getLogger(CheckInClient.class.getName());
+	
+	public static final String SYSTEM_URL = "http://localhost:3001/checkincontrol/system";
 
 	public static CheckIn[] getAllCheckIn() {
 		HttpHeaders headers = new HttpHeaders();
@@ -25,7 +25,7 @@ public class CheckInClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/checkin/getAllCheckIn";
+			String url = SYSTEM_URL + "/checkin/getAllCheckIn";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<CheckIn[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					CheckIn[].class);
@@ -44,7 +44,7 @@ public class CheckInClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/checkin/getCheckInById/{id}";
+			String url = SYSTEM_URL + "/checkin/getCheckInById/{id}";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<CheckIn> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					CheckIn.class, id);
@@ -63,7 +63,7 @@ public class CheckInClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/checkin/getCheckInByName/{name}";
+			String url = SYSTEM_URL + "/checkin/getCheckInByName/{name}";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<CheckIn[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					CheckIn[].class, name);
@@ -82,7 +82,7 @@ public class CheckInClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/checkin/createCheckIn";
+			String url = SYSTEM_URL + "/checkin/createCheckIn";
 			HttpEntity<CheckIn> requestEntity = new HttpEntity<CheckIn>(checkIn, headers);
 			ResponseEntity<CheckIn> result = restTemplate.postForEntity(url, requestEntity, CheckIn.class);
 			checkInResponse = result.getBody();
@@ -99,7 +99,7 @@ public class CheckInClient {
 		int status = 200;
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = CheckinApp.SYSTEM_URL + "/checkin/updateCheckIn";
+		String url = SYSTEM_URL + "/checkin/updateCheckIn";
 		HttpEntity<CheckIn> requestEntity = new HttpEntity<CheckIn>(checkIn, headers);
 		try {
 			ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
@@ -122,7 +122,7 @@ public class CheckInClient {
 		int status = 200;
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = CheckinApp.SYSTEM_URL + "/checkin/deleteCheckIn/{id}";
+		String url = SYSTEM_URL + "/checkin/deleteCheckIn/{id}";
 		HttpEntity<CheckIn> requestEntity = new HttpEntity<CheckIn>(headers);
 		try {
 			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, String.class,
@@ -144,7 +144,7 @@ public class CheckInClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/checkin/truncateCheckin";
+			String url = SYSTEM_URL + "/checkin/truncateCheckin";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					String.class);
