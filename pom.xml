@@ -116,6 +116,7 @@
     
   </dependencies>
   
+  <!--
     <build>
 		<plugins>
 			<plugin>
@@ -134,6 +135,27 @@
 			</configuration>
 		</plugin>
 		</plugins>
+</build> -->
+
+<!--  NO EXECUTABLE JAR CREATION FOR CLIENTS AND MODELS-->
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<executions>
+				<execution>
+					<goals>
+						<goal>repackage</goal>
+					</goals>
+					<configuration>
+						<classifier>exec</classifier>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins>
+	<finalName>checkin-data-services</finalName>
 </build>
 
 

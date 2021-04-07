@@ -10,13 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import com.java.project.checkin.CheckinApp;
 import com.java.project.checkin.models.EmailConfig;
 
 public class EmailConfigClient {
 
 	public static Logger logger = Logger.getLogger(EmailConfigClient.class.getName());
+	
+	public static final String SYSTEM_URL = "http://localhost:3001/checkincontrol/system";
 
 	public static EmailConfig[] getAllEmailConfig() {
 		HttpHeaders headers = new HttpHeaders();
@@ -24,7 +24,7 @@ public class EmailConfigClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/emailConfig/getAllEmailConfig";
+			String url = SYSTEM_URL + "/emailConfig/getAllEmailConfig";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<EmailConfig[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					EmailConfig[].class);
@@ -43,12 +43,12 @@ public class EmailConfigClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/emailConfig/getEmailConfigById/{id}";
+			String url = SYSTEM_URL + "/emailConfig/getEmailConfigById/{id}";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<EmailConfig> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					EmailConfig.class, id);
 			emailConfig = responseEntity.getBody();
-			logger.info("Before Returning getClosureById");
+			logger.info("Before Returning getEmailConfigById");
 			return emailConfig;
 		} catch (Exception ex) {
 			logger.warning("ERROR GET EMAIL CONFIG BY ID: " + ex);
@@ -62,7 +62,7 @@ public class EmailConfigClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/emailConfig/createEmailConfig";
+			String url = SYSTEM_URL + "/emailConfig/createEmailConfig";
 			HttpEntity<EmailConfig> requestEntity = new HttpEntity<EmailConfig>(emailConfig, headers);
 			ResponseEntity<EmailConfig> result = restTemplate.postForEntity(url, requestEntity, EmailConfig.class);
 			emailConfigResponse = result.getBody();
@@ -79,7 +79,7 @@ public class EmailConfigClient {
 		int status = 200;
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = CheckinApp.SYSTEM_URL + "/emailConfig/updateEmailConfig";
+		String url = SYSTEM_URL + "/emailConfig/updateEmailConfig";
 		HttpEntity<EmailConfig> requestEntity = new HttpEntity<EmailConfig>(emailConfig, headers);
 		try {
 			ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
@@ -102,7 +102,7 @@ public class EmailConfigClient {
 		int status = 200;
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = CheckinApp.SYSTEM_URL + "/emailConfig/deleteEmailConfig/{id}";
+		String url = SYSTEM_URL + "/emailConfig/deleteEmailConfig/{id}";
 		HttpEntity<EmailConfig> requestEntity = new HttpEntity<EmailConfig>(headers);
 		try {
 			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, String.class,
@@ -124,7 +124,7 @@ public class EmailConfigClient {
 		try {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
-			String url = CheckinApp.SYSTEM_URL + "/emailConfig/truncateEmailConfig";
+			String url = SYSTEM_URL + "/emailConfig/truncateEmailConfig";
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 					String.class);
